@@ -16,6 +16,7 @@
  */
 package edu.eci.cvds.sampleprj.jdbc.example;
 
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -99,7 +100,7 @@ public class JDBCExample {
      * @param codigoPedido el código del pedido
      * @return 
      */
-    public static List<String> nombresProductosPedido(Connection con, int codigoPedido){
+    public static List<String> nombresProductosPedido(Connection con, int codigoPedido) throws SQLException{
         List<String> np=new LinkedList<>();
         
         //Crear prepared statement
@@ -107,7 +108,7 @@ public class JDBCExample {
         //asignar parámetros
 		preparedStmt.setInt(1,codigoPedido);
         //usar executeQuery
-		ResultSet rs = preparedStmt.executeQuery("SELECT nombre FROM ORD_PRODUCTOS")
+		ResultSet rs = preparedStmt.executeQuery("SELECT nombre FROM ORD_PRODUCTOS");
         //Sacar resultados del ResultSet
 		while(rs.next()){
 			np.add(rs.getString("nombre"));
@@ -126,15 +127,13 @@ public class JDBCExample {
     public static int valorTotalPedido(Connection con, int codigoPedido) throws SQLException{
         
         //Crear prepared statement
-		preparedStmt = con.prepareStatement("select pedido_fk,sum(cantidad*precio) AS totalPedido  
-											from ORD_PRODUCTOS, ORD_DETALLE_PEDIDO 
-											where producto_fk = codigo and pedido_fk=?");
+		PreparedStatement preparedStmt = con.prepareStatement("select pedido_fk,sum(cantidad*precio) AS totalPedido from ORD_PRODUCTOS, ORD_DETALLE_PEDIDO where producto_fk = codigo and pedido_fk=?");
         //asignar parámetros
 		preparedStmt.setInt(1,codigoPedido);
         //usar executeQuery
-		ResultSet rs = preparedStmt.executeQuery()
+		ResultSet rs = preparedStmt.executeQuery();
         //Sacar resultado del ResultSet
-        return rs.getInt(totalPedido);
+        return rs.getInt("totalPedido");
     }
     
    
