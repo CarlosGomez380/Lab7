@@ -6,16 +6,18 @@
     <!--<settings>
         <setting name="logImpl" value="LOG4J"/>        
     </settings>-->
-    
+     	
+	
     <properties resource="config.properties">
     </properties>
-    <typeAliases>
-        <typeAlias type="edu.eci.cvds.samples.entities.Cliente" alias="Cliente"/>
-        <typeAlias type="edu.eci.cvds.samples.entities.Item" alias="Item"/>
-        <typeAlias type="edu.eci.cvds.samples.entities.ItemRentado" alias="ItemRentado"/>
-        <typeAlias type="edu.eci.cvds.samples.entities.TipoItem" alias="TipoItem"/>
-    </typeAliases>	
-
+    	
+	<typeAliases>
+		<typeAlias type="edu.eci.cvds.samples.entities.Cliente" alias="Cliente"/>
+		<typeAlias type="edu.eci.cvds.samples.entities.Item" alias ="Item" />
+		<typeAlias type="edu.eci.cvds.samples.entities.ItemRentado" alias="ItemRentado"/>
+		<typeAlias type="edu.eci.cvds.samples.entities.TipoItem" alias="TipoItem"/>
+	</typeAliases>
+	
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC" />
@@ -34,7 +36,8 @@
     <mappers>
         <mapper resource="mappers/ClienteMapper.xml"></mapper>
         <mapper resource="mappers/ItemMapper.xml"></mapper>
-        <mapper resource="mappers/TipoItemMapper.xml"></mapper>        
+        <mapper resource="mappers/TipoItemMapper.xml"></mapper> 
+		<mapper resource="mappers/ItemRentadoMapper.XML"></mapper>
     </mappers> 
         
         

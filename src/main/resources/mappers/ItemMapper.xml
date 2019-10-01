@@ -5,7 +5,20 @@
   
 <mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper">
 
-
-    
-    
+	<resultMap type='Item' id='ItemResult'>
+		<id property= 'id' column ='id2'/>
+		<result property= 'nombre' column='nombre2'/>
+		<result property= 'descripcion' column='d1'/>
+		<result property= 'fechaLanzamiento' column='fechalanzamiento'/>
+		<result property= 'tarifaxDia' column='tarifaxdia'/>
+		<result property= 'formatoRenta' column='formatorenta'/>
+		<result property= 'genero' column='genero'/>
+		<association property='tipo' javaType='TipoItem' resultMap="TipoItemResult" columnPrefix= 'ti_'></association>
+	</resultMap>
+	
+	
+	<insert parameterType="map" id="insertarItem">
+	insert insert into VI_ITEMS values(#{item.id},#{item.nombre},#{item.descripcion},#{item.fechalanzamiento},#{item.tarifaxDia},#{item.formato},#{item.genero})
+	</insert>
+	
 </mapper>
