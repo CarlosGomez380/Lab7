@@ -58,8 +58,8 @@ public class JDBCExample {
             System.out.println("-----------------------");
             
             
-            int suCodigoECI=20134423;
-            registrarNuevoProducto(con, suCodigoECI, "SU NOMBRE", 99999999);            
+            int suCodigoECI=2130289;
+            registrarNuevoProducto(con, suCodigoECI, "Juan Sebastian Caceres Leon", 99999999);            
             con.commit();
                         
             
@@ -82,13 +82,13 @@ public class JDBCExample {
      */
     public static void registrarNuevoProducto(Connection con, int codigo, String nombre,int precio) throws SQLException{
         //Crear preparedStatement
-		PreparedStatement preparedStmt = con.prepareStatement("insert into ORD_PRODUCTOS values(?,?,?) ");
+        PreparedStatement preparedStmt = con.prepareStatement("insert into ORD_PRODUCTOS values(?,?,?) ");
         //Asignar parámetros
-		preparedStmt.setInt(1,codigo);
-		preparedStmt.setString(2,nombre);
-		preparedStmt.setInt(3,precio);
+        preparedStmt.setInt(1,codigo);
+	preparedStmt.setString(2,nombre);
+	preparedStmt.setInt(3,precio);
         //usar 'execute'
-		preparedStmt.execute();
+	preparedStmt.execute();
 
         con.commit();
         
@@ -104,15 +104,15 @@ public class JDBCExample {
         List<String> np=new LinkedList<>();
         
         //Crear prepared statement
-		PreparedStatement preparedStmt = con.prepareStatement("select nombre from ORD_PRODUCTOS where codigo=?");
+	PreparedStatement preparedStmt = con.prepareStatement("select nombre from ORD_PRODUCTOS where codigo=?");
         //asignar parámetros
-		preparedStmt.setInt(1,codigoPedido);
+	preparedStmt.setInt(1,codigoPedido);
         //usar executeQuery
-		ResultSet rs = preparedStmt.executeQuery("SELECT nombre FROM ORD_PRODUCTOS");
+	ResultSet rs = preparedStmt.executeQuery("SELECT nombre FROM ORD_PRODUCTOS");
         //Sacar resultados del ResultSet
-		while(rs.next()){
-			np.add(rs.getString("nombre"));
-		}
+	while(rs.next()){
+            np.add(rs.getString("nombre"));
+	}
         //Llenar la lista y retornarla
         return np;
     }
@@ -127,12 +127,13 @@ public class JDBCExample {
     public static int valorTotalPedido(Connection con, int codigoPedido) throws SQLException{
         
         //Crear prepared statement
-		PreparedStatement preparedStmt = con.prepareStatement("select pedido_fk,sum(cantidad*precio) AS totalPedido from ORD_PRODUCTOS, ORD_DETALLE_PEDIDO where producto_fk = codigo and pedido_fk=?");
+        PreparedStatement preparedStmt = con.prepareStatement("select pedido_fk,sum(cantidad*precio) AS totalPedido from ORD_PRODUCTOS, ORD_DETALLE_PEDIDO where producto_fk = codigo and pedido_fk=?");
         //asignar parámetros
-		preparedStmt.setInt(1,codigoPedido);
+	preparedStmt.setInt(1,codigoPedido);
         //usar executeQuery
-		ResultSet rs = preparedStmt.executeQuery();
+	ResultSet rs = preparedStmt.executeQuery();
         //Sacar resultado del ResultSet
+        rs.next();
         return rs.getInt("totalPedido");
     }
     
