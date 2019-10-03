@@ -71,9 +71,9 @@ public class MyBatisExample {
         
 
         ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
-        Date date= new Date();
-        cm.agregarItemRentadoACliente(1,1,date,date);
-        
+        //Date date= new Date();
+        //cm.agregarItemRentadoACliente(1,1,date,date);
+        System.out.println(cm.consultarClientes());
         sqlss.commit();
         
         
