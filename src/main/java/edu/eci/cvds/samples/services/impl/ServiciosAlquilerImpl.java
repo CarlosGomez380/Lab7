@@ -48,6 +48,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
        }
        catch (Exception e){
            throw new ExcepcionServiciosAlquiler("Error al consultar el cliente" + Long.toString(docu),e);
+           
        }
    }
    
