@@ -68,4 +68,13 @@ public class MyBATISClienteDAO implements ClienteDAO {
         }
     }
     
+    @Override
+    public void updateEstado(long docu,boolean estado) throws PersistenceException {
+        try{
+            clienteMapper.actualizarEstado(docu, estado);
+        }
+        catch(org.apache.ibatis.exceptions.PersistenceException e){
+        throw new PersistenceException("Error al actualizar el estado del cliente "+Long.toString(docu),e);
+        }
+    }
 }

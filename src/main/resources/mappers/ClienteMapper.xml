@@ -5,7 +5,7 @@
   
 <mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper">
 	<select parameterType="map" id="consultarClientes" resultMap="ClienteResult">
-		select
+	select
     c.nombre as nombre1,
     c.documento,
     c.telefono,
@@ -28,8 +28,36 @@
     left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
     left join VI_ITEMS as i on ir.ITEMS_id=i.id 
     left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
+	</select>
+	
+	<select parameterType="map" id="consultarCliente" resultMap="ClienteResult">
+	select
+    c.nombre as nombre1,
+    c.documento,
+    c.telefono,
+    c.direccion,
+    c.email,
+    c.vetado,
+    ir.id as id1,
+    ir.fechainiciorenta ,
+    ir.fechafinrenta ,
+    i.id as id2,
+    i.nombre as nombre2,
+    i.descripcion as d1,
+    i.fechalanzamiento ,
+    i.tarifaxdia ,
+    i.formatorenta ,
+    i.genero ,        
+    ti.id as id3,
+    ti.descripcion as d2 
+    FROM VI_CLIENTES as c 
+    left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+    left join VI_ITEMS as i on ir.ITEMS_id=i.id 
+    left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id
 	where c.documento= #{idcli}
 	</select>
+	
+	
 	
 	<resultMap type='Cliente' id='ClienteResult'>
 		<id property='documento' column='documento'/>

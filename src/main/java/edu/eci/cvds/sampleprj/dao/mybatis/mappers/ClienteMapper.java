@@ -38,4 +38,6 @@ public interface ClienteMapper {
     public void insertarCliente(@Param("cliente")Cliente cli); 
     
     public List<ItemRentado> consultarItem(@Param("itdcli") long id);
+    
+    public void actualizarEstado(@Param("idcli")long docu, @Param("idestado")boolean estado);
 }

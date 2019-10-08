@@ -20,4 +20,6 @@ public interface ClienteDAO {
     
     public List<ItemRentado> loadItemRentados(long documento) throws PersistenceException;
     
+    public void updateEstado(long docu, boolean estado) throws PersistenceException;
+    
 }

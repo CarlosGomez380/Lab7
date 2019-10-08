@@ -29,6 +29,8 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    @Inject 
    private TipoItemDAO tipoItemDAO;
    
+
+   
    @Override
    public List<Cliente> consultarClientes() throws ExcepcionServiciosAlquiler {
        try{
@@ -44,7 +46,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
        try{
            return clienteDAO.load(docu);
        }
-       catch (PersistenceException e){
+       catch (Exception e){
            throw new ExcepcionServiciosAlquiler("Error al consultar el cliente" + Long.toString(docu),e);
        }
    }
@@ -135,6 +137,26 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    }
    
    @Override
+   public void vetarCliente(long docu, boolean estado) throws ExcepcionServiciosAlquiler {
+       try{
+           clienteDAO.updateEstado(docu,estado);
+       }
+       catch (PersistenceException e){
+           throw new ExcepcionServiciosAlquiler("Error al actualizar el estado del cliente" + Long.toString(docu),e);
+       }
+   }
+   
+   @Override
+   public void actualizarTarifaItem(int id, long tarifa) throws ExcepcionServiciosAlquiler {
+       try{
+           itemDAO.updateTarifa(id,tarifa);
+       }
+       catch (PersistenceException e){
+           throw new ExcepcionServiciosAlquiler("Error al actualizar la tarifa del item" + Integer.toString(id),e);
+       }
+   }
+   
+   @Override
    public long valorMultaRetrasoxDia(int itemId) throws ExcepcionServiciosAlquiler {
        try{
         Item item= consultarItem(itemId);
@@ -142,6 +164,20 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
        }
        catch(org.apache.ibatis.exceptions.PersistenceException e){
            throw new ExcepcionServiciosAlquiler("Error al consultar el costo de multa por dia del item "+ Integer.toString(itemId),e);
+       }
+   }
+   
+   @Override
+   public long consultarMultaAlquiler(int iditem, Date fechaDevolucion) throws ExcepcionServiciosAlquiler {
+       try{
+        Calendar cal = Calendar.getInstance();
+        long diff = cal.getTime().getTime() - fechaDevolucion.getTime();
+        int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
+        Item item= consultarItem(iditem);
+        return item.getTarifaxDia()* diffDays;
+       }
+       catch(org.apache.ibatis.exceptions.PersistenceException e){
+           throw new ExcepcionServiciosAlquiler("Error al consultar el costo de multa item "+ Integer.toString(iditem),e);
        }
    }
    
@@ -165,11 +201,6 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
        throw new UnsupportedOperationException("Not supported yet.");
    }
 
-   @Override
-   public long consultarMultaAlquiler(int iditem, Date fechaDevolucion) throws ExcepcionServiciosAlquiler {
-       throw new UnsupportedOperationException("Not supported yet.");
-   }
-
    
 
    
@@ -180,14 +211,10 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 
    
 
-   @Override
-   public void actualizarTarifaItem(int id, long tarifa) throws ExcepcionServiciosAlquiler {
-       throw new UnsupportedOperationException("Not supported yet.");
-   }
    
 
-   @Override
-   public void vetarCliente(long docu, boolean estado) throws ExcepcionServiciosAlquiler {
-       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-   }
+   
+   
+
+   
 }

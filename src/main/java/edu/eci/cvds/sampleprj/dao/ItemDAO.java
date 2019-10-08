@@ -9,4 +9,5 @@ public interface ItemDAO {
 
    public Item load(int id) throws PersistenceException;
 
+   public void updateTarifa(int id,long tarifa) throws PersistenceException;
 }
