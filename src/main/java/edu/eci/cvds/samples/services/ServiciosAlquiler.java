@@ -16,7 +16,7 @@ public interface ServiciosAlquiler {
    /**
    * @obj Consultar los items que tenga en su poder un cliente
    * @param idcliente identificador del cliente
-   * @return el litado de detalle de los items rentados por el cliente
+   * @return el listado de detalle de los items rentados por el cliente
    * identificado con 'idcliente'
    * @throws ExcepcionServiciosAlquiler si el cliente no esta registrado
    */
@@ -49,7 +49,7 @@ public interface ServiciosAlquiler {
    public abstract List<TipoItem> consultarTiposItem() throws ExcepcionServiciosAlquiler;
 
    /**
-   * @obj rejistrar el alkiler de un item
+   * @obj rejistrar el alquiler de un item
    * @pre numdias >=1
    * @param date fecha de rejistro del alquiler
    * @param docu identificacion de a quien se le cargara el alquiler
@@ -57,7 +57,7 @@ public interface ServiciosAlquiler {
    * @param numdias el numero de dias que se le prestara el item
    * @pos el item ya no debe estar disponible, y debe estar asignado al
    * cliente
-   * @throws ExcepcionXX si el identificador no corresponde con un item, o si
+   * @throws ExcepcionServiciosAlquiler si el identificador no corresponde con un item, o si
    * el mismo ya esta alquilado
    */
    public abstract void registrarAlquilerCliente(Date date, long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler;

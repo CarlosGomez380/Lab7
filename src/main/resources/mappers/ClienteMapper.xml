@@ -54,10 +54,26 @@
     left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
     left join VI_ITEMS as i on ir.ITEMS_id=i.id 
     left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id
-	where c.documento= #{idcli}
+	<if test="idcli != null">
+			where c.documento=#{idcli}
+	</if>
 	</select>
 	
-	
+	<select parameterType="map" id="consultarItem" resultMap="ClienteResult">
+	select 
+	ir.id as idRenta,i
+	r.fechainiciorenta, 
+	ir.fechafinrenta, 
+	i.id as idItem, 
+	i.nombre, 
+	i.tarifaxdia
+	FROM VI_CLIENTES as c 
+    left join VI_ITEMRENTADO as ir on c.documento=ir.CLIENTES_documento 
+    left join VI_ITEMS as i on ir.ITEMS_id=i.id 
+	<if test="idcli != null">
+			where c.documento=#{idcli}
+	</if>
+	</select>
 	
 	<resultMap type='Cliente' id='ClienteResult'>
 		<id property='documento' column='documento'/>

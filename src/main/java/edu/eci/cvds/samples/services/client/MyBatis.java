@@ -15,14 +15,11 @@ public class MyBatis {
     
     
     public static void main(String[] args) {
-        ServiciosAlquilerFactory.getInstance(); 
-        ServiciosAlquilerImpl at= new ServiciosAlquilerImpl();
-        long a=2342456;
         try{
-            Cliente c= at.consultarCliente(a);
-            System.out.println(c);
-        }catch(ExcepcionServiciosAlquiler e){
-            System.out.println("El cliente con documento "+Long.toString(a)+" no se encuentra.");
+            ServiciosAlquilerFactory.getInstance().getServiciosAlquiler().consultarCliente(0); 
+        }catch(Exception e){
+            System.out.println("error");
         }
+        
     }
 }
